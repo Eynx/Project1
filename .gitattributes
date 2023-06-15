@@ -1,0 +1,6 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Explicitly perform LF normalization for text files.
+*.java text eol=lf
+*.md text eol=lf
