@@ -1,9 +1,9 @@
 package com.revature.services;
 
 import com.revature.Models.Person;
-import com.revature.Models.Reimbursment;
+import com.revature.Models.Reimbursement;
 import com.revature.daos.PersonDAO;
-import com.revature.daos.ReimbursmentDAO;
+import com.revature.daos.ReimbursementDAO;
 import com.revature.exceptions.PersonNotFoundException;
 import com.revature.exceptions.RiembursmentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,12 @@ import java.util.Optional;
 @Service
 public class PersonService {
     private final PersonDAO personDao;
-    private final ReimbursmentDAO reimbursmentDao;
+    private final ReimbursementDAO reimbursementDao;
 
     @Autowired
-    public PersonService(PersonDAO personDao, ReimbursmentDAO reimbursmentDao) {
+    public PersonService(PersonDAO personDao, ReimbursementDAO reimbursementDao) {
         this.personDao = personDao;
-        this.reimbursmentDao = reimbursmentDao;
+        this.reimbursementDao = reimbursementDao;
     }
     public Person createPerson(Person p){
         // Now let's call the DAO methods to create user
@@ -66,38 +66,34 @@ public class PersonService {
             return false;
         }
     }
-    //get all reimbursment request by id
-    public List<Reimbursment> getReimbursmentsByPersonId(int id){
+    //get all reimbursement request by id
+    public List<Reimbursement> getReimbursementsByPersonId(int id){
         // First thing we should do is get the person from the db
 
         Optional<Person> returnedPerson = personDao.findById(id);
 
         if (returnedPerson.isPresent()){
-            return returnedPerson.get().getReimbursments();
+            return returnedPerson.get().getReimbursements();
         } else{
             throw new PersonNotFoundException("No Person with id: " + id);
         }
     }
-    //submit reimbursment
-    public Person submitReimbursment(int pid, int rid) throws RiembursmentNotFoundException {
+    //submit Reimbursement
+    public Person submitReimbursements(int pid, int rid) throws RiembursmentNotFoundException {
         Person p = getPersonById(pid);
 
-        // Now we need to extract the courses to add to it as necessary
-        List<Reimbursment> reimbursments = p.getReimbursments();
+        List<Reimbursement> reimbursements = p.getReimbursements();
 
-        // Now we need to search the courses table to find the course with id = cid
-        Optional<Reimbursment> returnedReimbursment = reimbursmentDao.findById(rid);
+        // Now we need to search the reimbursements table to find the reimbursements with id = cid
+        Optional<Reimbursement> returnedReimbursement = reimbursementDao.findById(rid);
 
-        if (returnedReimbursment.isPresent()){
-            if (!reimbursments.contains(returnedReimbursment.get())){
-                // The course exists and is NOT registered
-                reimbursments.add(returnedReimbursment.get());
-                // We need to attach this back to the person before we call the methods to save the person
-                p.setReimbursments(reimbursments);
+        if (returnedReimbursement.isPresent()){
+            if (!reimbursements.contains(returnedReimbursement.get())){
+                reimbursements.add(returnedReimbursement.get());
+                p.setReimbursements(reimbursements);
 
                 // Save the person to the db which *should*  have the new course made
                 personDao.save(p);
-
             }
         } else{
             throw new RiembursmentNotFoundException("No Course with id: " + rid);

@@ -23,7 +23,7 @@ public class Person {
     private String password;
 
     @ManyToMany
-    private List<Reimbursment> reimbursments;
+    private List<Reimbursement> reimbursements;
 
     //boiler plate code
 
@@ -31,7 +31,7 @@ public class Person {
     public Person() {
     }
 
-    public Person(int id, String firstname, String lastname, String location, Role role, String username, String password, List<Reimbursment> reimbursments) {
+    public Person(int id, String firstname, String lastname, String location, Role role, String username, String password, List<Reimbursement> reimbursements) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -39,7 +39,7 @@ public class Person {
         this.role = role;
         this.username = username;
         this.password = password;
-        this.reimbursments = reimbursments;
+        this.reimbursements = reimbursements;
     }
 
     public int getId() {
@@ -98,12 +98,12 @@ public class Person {
         this.password = password;
     }
 
-    public List<Reimbursment> getReimbursments() {
-        return reimbursments;
+    public List<Reimbursement> getReimbursements() {
+        return reimbursements;
     }
 
-    public void setReimbursments(List<Reimbursment> reimbursments) {
-        this.reimbursments = reimbursments;
+    public void setReimbursements(List<Reimbursement> reimbursements) {
+        this.reimbursements = reimbursements;
     }
 
     @Override
@@ -116,7 +116,7 @@ public class Person {
                 ", role=" + role +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", reimbursments=" + reimbursments +
+                ", reimbursements=" + reimbursements +
                 '}';
     }
 }

@@ -3,10 +3,10 @@ package com.revature.Models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "reimbursments")
-public class Reimbursment {
+@Table(name = "reimbursements")
+public class Reimbursement {
     @Id
-    @Column(name = "reimbursment_id")
+    @Column(name = "reimbursement_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(unique = true)
@@ -17,10 +17,10 @@ public class Reimbursment {
     private int amount;
     //boiler
 
-    public Reimbursment() {
+    public Reimbursement() {
     }
 
-    public Reimbursment(int id, String name, String description, int amount) {
+    public Reimbursement(int id, String name, String description, int amount) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -61,7 +61,7 @@ public class Reimbursment {
 
     @Override
     public String toString() {
-        return "Reimbursment{" +
+        return "Reimbursement{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

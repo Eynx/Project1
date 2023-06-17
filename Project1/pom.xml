@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.revature</groupId>
-	<artifactId>CourseManagementSystem</artifactId>
+	<artifactId>ExpenseReimbursmentSystem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CourseManagementSystem</name>
 	<description>Course Management System for Batch 230522</description>
