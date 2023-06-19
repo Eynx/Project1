@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class Person
 	private String password;
 
 	@OneToMany(targetEntity = Reimbursement.class, mappedBy = "user")
+	@JsonManagedReference
 	private List<Reimbursement> reimbursements;
 
 	// Constructors

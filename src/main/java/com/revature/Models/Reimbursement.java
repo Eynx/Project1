@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,6 +23,7 @@ public class Reimbursement
 
 	@ManyToOne(targetEntity = Person.class)
 	@JoinColumn(name = "reimbursement_user_id")
+	@JsonBackReference
 	private Person user;
 
 	@ManyToOne(targetEntity = Status.class)
