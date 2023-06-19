@@ -13,92 +13,69 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PersonService {
-    private final PersonDAO personDao;
-    private final ReimbursementDAO reimbursementDao;
+public class PersonService
+{
+	private final PersonDAO personDao;
+	private final ReimbursementDAO reimbursementDao;
 
-    @Autowired
-    public PersonService(PersonDAO personDao, ReimbursementDAO reimbursementDao) {
-        this.personDao = personDao;
-        this.reimbursementDao = reimbursementDao;
-    }
-    public Person createPerson(Person p){
-        // Now let's call the DAO methods to create user
-        Person returnedPerson = personDao.save(p);
+	@Autowired
+	public PersonService(PersonDAO personDao, ReimbursementDAO reimbursementDao)
+	{
+		this.personDao = personDao;
+		this.reimbursementDao = reimbursementDao;
+	}
 
-        // If successful we should have a positive Id
-        if (returnedPerson.getId() > 0){
-            // TODO create a log for success
-        } else{
-            // TODO create a log for failure
-        }
+	public List<Person> getAllPeople()
+	{
+		return personDao.findAll();
+	}
 
-        return returnedPerson;
-    }
+	public Person getPersonById(int id) throws PersonNotFoundException
+	{
+		return personDao.findById(id).orElseThrow(() -> new PersonNotFoundException("No person found with the id: " + id));
+	}
 
-    // Read All
-    public List<Person> getAllPeople(){
-        return personDao.findAll();
-    }
+	public boolean addPerson(Person person)
+	{
+		return personDao.save(person).getId() > 0;
+	}
 
-    // Read One
-    public Person getPersonById(int id){
-        // We'll use the optional methods to return the proper thing
-        return personDao.findById(id).orElseThrow(() -> new PersonNotFoundException("No person found with id: " + id));
-    }
+	public boolean updatePerson(Person person)
+	{
+		if(person.getId() > 0)
+		{
+			personDao.save(person);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
+	public boolean removePersonById(int id)
+	{
+		personDao.deleteById(id);
+		return !personDao.existsById(id);
+	}
 
-    // Update
-    public Person updatePerson(Person p){
-        return personDao.save(p);
-    }
+	public List<Reimbursement> getReimbursementsByPersonId(int id) throws PersonNotFoundException
+	{
+		Person person = personDao.findById(id).orElseThrow(() -> new PersonNotFoundException("No person found with the id: " + id));
+		return person.getReimbursements();
+	}
 
-    // Delete
-    public boolean deletePersonById(int id){
-        // We need to delete by id then verify nonexistence
-        personDao.deleteById(id);
+	public Person submitReimbursement(int personId, int reimbursementId) throws PersonNotFoundException, ReimbursementNotFoundException
+	{
+		Person person = getPersonById(personId);
+		Reimbursement reimbursement = reimbursementDao.findById(reimbursementId).orElseThrow(() -> new ReimbursementNotFoundException("No reimbursement found with the id: " + reimbursementId));
 
-        // We need to check to see if a person is still in the db
-        if (!personDao.existsById(id)){
-            // Successful message
-            return true;
-        } else{
-            return false;
-        }
-    }
-    //get all reimbursement request by id
-    public List<Reimbursement> getReimbursementsByPersonId(int id){
-        // First thing we should do is get the person from the db
+		if(!person.getReimbursements().contains(reimbursement))
+		{
+			person.getReimbursements().add(reimbursement);
+			personDao.save(person);
+		}
 
-        Optional<Person> returnedPerson = personDao.findById(id);
-
-        if (returnedPerson.isPresent()){
-            return returnedPerson.get().getReimbursements();
-        } else{
-            throw new PersonNotFoundException("No Person with id: " + id);
-        }
-    }
-    //submit Reimbursement
-    public Person submitReimbursements(int pid, int rid) throws RiembursmentNotFoundException {
-        Person p = getPersonById(pid);
-
-        List<Reimbursement> reimbursements = p.getReimbursements();
-
-        // Now we need to search the reimbursements table to find the reimbursements with id = cid
-        Optional<Reimbursement> returnedReimbursement = reimbursementDao.findById(rid);
-
-        if (returnedReimbursement.isPresent()){
-            if (!reimbursements.contains(returnedReimbursement.get())){
-                reimbursements.add(returnedReimbursement.get());
-                p.setReimbursements(reimbursements);
-
-                // Save the person to the db which *should*  have the new course made
-                personDao.save(p);
-            }
-        } else{
-            throw new RiembursmentNotFoundException("No Course with id: " + rid);
-        }
-
-        return p;
-    }
+		return person;
+	}
 }
