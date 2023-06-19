@@ -1,11 +1,11 @@
 package com.revature.services;
 
-import com.revature.Models.Person;
-import com.revature.Models.Reimbursement;
+import com.revature.models.Person;
+import com.revature.models.Reimbursement;
 import com.revature.daos.PersonDAO;
 import com.revature.daos.ReimbursementDAO;
 import com.revature.exceptions.PersonNotFoundException;
-import com.revature.exceptions.RiembursmentNotFoundException;
+import com.revature.exceptions.ReimbursementNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

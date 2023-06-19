@@ -1,33 +1,38 @@
 package com.revature.models;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "roles")
-public class Role
+@Table(name = "statuses")
+public class Status
 {
 	// Members
 
 	@Id
-	@Column(name = "role_id")
+	@Column(name = "status_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "role_name", unique = true)
+	@Column(name = "status_name", unique = true)
 	private String name;
 
 	// Constructors
 
-	public Role()
+	public Status()
 	{
 	}
 
-	public Role(String name)
+	public Status(String name)
 	{
 		this.name = name;
 	}
 
-	public Role(int id, String name)
+	public Status(int id, String name)
 	{
 		this.id = id;
 		this.name = name;
@@ -39,6 +44,7 @@ public class Role
 	{
 		return id;
 	}
+
 	public void setId(int id)
 	{
 		this.id = id;
@@ -48,6 +54,7 @@ public class Role
 	{
 		return name;
 	}
+
 	public void setName(String name)
 	{
 		this.name = name;
@@ -58,7 +65,7 @@ public class Role
 	@Override
 	public String toString()
 	{
-		return "Role{" +
+		return "Status{" +
 				"id=" + id +
 				", name='" + name + '\'' +
 				'}';

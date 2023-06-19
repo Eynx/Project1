@@ -1,122 +1,146 @@
-package com.revature.Models;
+package com.revature.models;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class Person {
-    @Id
-    @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(name = "first_name")
-    private String firstname;
-    @Column(name = "last_name")
-    private String lastname;
-    private String Location;
-    //many people can be an employee or finance manager
-    @ManyToOne
-    private Role role;
-    @Column(unique = true)
-    private String username;
-    private String password;
+public class Person
+{
+	// Members
 
-    @ManyToMany
-    private List<Reimbursement> reimbursements;
+	@Id
+	@Column(name = "user_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    //boiler plate code
+	@Column(name = "user_first_name")
+	private String firstName;
+	@Column(name = "user_last_name")
+	private String lastName;
 
+	@ManyToOne
+	@JoinColumn(name = "user_role_id")
+	private Role role;
 
-    public Person() {
-    }
+	@Column(name = "user_username", unique = true)
+	private String username;
+	@Column(name = "user_password")
+	private String password;
 
-    public Person(int id, String firstname, String lastname, String location, Role role, String username, String password, List<Reimbursement> reimbursements) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        Location = location;
-        this.role = role;
-        this.username = username;
-        this.password = password;
-        this.reimbursements = reimbursements;
-    }
+	@OneToMany(targetEntity = Reimbursement.class, mappedBy = "user")
+	private List<Reimbursement> reimbursements;
 
-    public int getId() {
-        return id;
-    }
+	// Constructors
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public Person()
+	{
+	}
 
-    public String getFirstname() {
-        return firstname;
-    }
+	public Person(String firstName, String lastName, Role role, String username, String password)
+	{
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+		this.username = username;
+		this.password = password;
+	}
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+	public Person(int id, String firstName, String lastName, Role role, String username, String password)
+	{
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+		this.username = username;
+		this.password = password;
+	}
 
-    public String getLastname() {
-        return lastname;
-    }
+	// Getters and Setters
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+	public int getId()
+	{
+		return id;
+	}
 
-    public String getLocation() {
-        return Location;
-    }
+	public void setId(int id)
+	{
+		this.id = id;
+	}
 
-    public void setLocation(String location) {
-        Location = location;
-    }
+	public String getFirstName()
+	{
+		return firstName;
+	}
 
-    public Role getRole() {
-        return role;
-    }
+	public void setFirstName(String firstName)
+	{
+		this.firstName = firstName;
+	}
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
+	public String getLastName()
+	{
+		return lastName;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setLastName(String lastName)
+	{
+		this.lastName = lastName;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public Role getRole()
+	{
+		return role;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setRole(Role role)
+	{
+		this.role = role;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getUsername()
+	{
+		return username;
+	}
 
-    public List<Reimbursement> getReimbursements() {
-        return reimbursements;
-    }
+	public void setUsername(String username)
+	{
+		this.username = username;
+	}
 
-    public void setReimbursements(List<Reimbursement> reimbursements) {
-        this.reimbursements = reimbursements;
-    }
+	public String getPassword()
+	{
+		return password;
+	}
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", Location='" + Location + '\'' +
-                ", role=" + role +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", reimbursements=" + reimbursements +
-                '}';
-    }
+	public void setPassword(String password)
+	{
+		this.password = password;
+	}
+
+	public List<Reimbursement> getReimbursements()
+	{
+		return reimbursements;
+	}
+
+	public void setReimbursements(List<Reimbursement> reimbursements)
+	{
+		this.reimbursements = reimbursements;
+	}
+
+	// Object Overrides
+
+	@Override
+	public String toString()
+	{
+		return "Person{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", role=" + role +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", reimbursements=" + reimbursements +
+				'}';
+	}
 }

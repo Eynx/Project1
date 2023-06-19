@@ -1,71 +1,103 @@
-package com.revature.Models;
+package com.revature.models;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "reimbursements")
-public class Reimbursement {
-    @Id
-    @Column(name = "reimbursement_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(unique = true)
-    private String name;
+public class Reimbursement
+{
+	// Members
 
-    private String description;
+	@Id
+	@Column(name = "reimbursement_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    private int amount;
-    //boiler
+	@Column(name = "reimbursement_amount")
+	private int amount;
 
-    public Reimbursement() {
-    }
+	@Column(name = "reimbursement_description")
+	private String description;
 
-    public Reimbursement(int id, String name, String description, int amount) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.amount = amount;
-    }
+	@ManyToOne(targetEntity = Person.class)
+	@JoinColumn(name = "reimbursement_user_id")
+	private Person user;
 
-    public int getId() {
-        return id;
-    }
+	@ManyToOne(targetEntity = Status.class)
+	@JoinColumn(name = "reimbursement_status_id")
+	private Status status;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	// Constructors
 
-    public String getName() {
-        return name;
-    }
+	public Reimbursement()
+	{
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public Reimbursement(int id, int amount, String description)
+	{
+		this.id = id;
+		this.amount = amount;
+		this.description = description;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	// Getters and Setters
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public int getId()
+	{
+		return id;
+	}
+	public void setId(int id)
+	{
+		this.id = id;
+	}
 
-    public int getAmount() {
-        return amount;
-    }
+	public int getAmount()
+	{
+		return amount;
+	}
+	public void setAmount(int amount)
+	{
+		this.amount = amount;
+	}
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
+	public String getDescription()
+	{
+		return description;
+	}
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
 
-    @Override
-    public String toString() {
-        return "Reimbursement{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", amount=" + amount +
-                '}';
-    }
+	public Person getUser()
+	{
+		return user;
+	}
+	public void setUser(Person user)
+	{
+		this.user = user;
+	}
+
+	public Status getStatus()
+	{
+		return status;
+	}
+	public void setStatus(Status status)
+	{
+		this.status = status;
+	}
+
+	// Object Overrides
+
+	@Override
+	public String toString()
+	{
+		return "Reimbursement{" +
+				"id=" + id +
+				", amount=" + amount +
+				", description='" + description + '\'' +
+				", user=" + user +
+				", status=" + status +
+				'}';
+	}
 }

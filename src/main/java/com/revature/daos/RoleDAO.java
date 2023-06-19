@@ -1,10 +1,13 @@
 package com.revature.daos;
 
-import com.revature.Models.Role;
+import com.revature.models.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface RoleDAO extends JpaRepository<Role, Integer> {
-    Role getByName(String name);
+public interface RoleDAO extends JpaRepository<Role, Integer>
+{
+	Optional<Role> findByName(String name);
 }
