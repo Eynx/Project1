@@ -4,10 +4,11 @@ import com.revature.daos.ReimbursementDAO;
 import com.revature.exceptions.ReimbursementNotFoundException;
 import com.revature.models.Reimbursement;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ReimbursementService
 {
 	private final ReimbursementDAO reimbursementDAO;
