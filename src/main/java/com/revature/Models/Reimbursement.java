@@ -1,6 +1,8 @@
 package com.revature.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
@@ -21,10 +23,10 @@ public class Reimbursement
 	@Column(name = "reimbursement_description")
 	private String description;
 
-	@ManyToOne(targetEntity = User.class)
+	@ManyToOne(targetEntity = Person.class)
 	@JoinColumn(name = "reimbursement_user_id")
-	@JsonBackReference
-	private User user;
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	private Person person;
 
 	@ManyToOne(targetEntity = Status.class)
 	@JoinColumn(name = "reimbursement_status_id")
@@ -72,13 +74,13 @@ public class Reimbursement
 		this.description = description;
 	}
 
-	public User getUser()
+	public Person getUser()
 	{
-		return user;
+		return person;
 	}
-	public void setUser(User user)
+	public void setUser(Person person)
 	{
-		this.user = user;
+		this.person = person;
 	}
 
 	public Status getStatus()
@@ -99,7 +101,7 @@ public class Reimbursement
 				"id=" + id +
 				", amount=" + amount +
 				", description='" + description + '\'' +
-				", user=" + user +
+				", user=" + person +
 				", status=" + status +
 				'}';
 	}

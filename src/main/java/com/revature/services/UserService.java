@@ -1,6 +1,6 @@
 package com.revature.services;
 
-import com.revature.models.User;
+import com.revature.models.Person;
 import com.revature.models.Reimbursement;
 import com.revature.daos.UserDAO;
 import com.revature.daos.ReimbursementDAO;
@@ -24,25 +24,25 @@ public class UserService
 		this.reimbursementDao = reimbursementDao;
 	}
 
-	public List<User> getAllPeople()
+	public List<Person> getAllPeople()
 	{
 		return userDao.findAll();
 	}
 
-	public User getPersonById(int id) throws UserNotFoundException
+	public Person getPersonById(int id) throws UserNotFoundException
 	{
 		return userDao.findById(id).orElseThrow(() -> new UserNotFoundException("No person found with the id: " + id));
 	}
 
-	public boolean addPerson(User user)
+	public boolean addPerson(Person person)
 	{
-		return userDao.save(user).getId() > 0;
+		return userDao.save(person).getId() > 0;
 	}
 
-	public boolean updatePerson(User user)
+	public boolean updatePerson(Person person)
 	{
-		if(user.getId() > 0) {
-			userDao.save(user);
+		if(person.getId() > 0) {
+			userDao.save(person);
 			return true;
 		} else {
 			return false;
@@ -57,20 +57,20 @@ public class UserService
 
 	public List<Reimbursement> getReimbursementsByPersonId(int id) throws UserNotFoundException
 	{
-		User user = userDao.findById(id).orElseThrow(() -> new UserNotFoundException("No person found with the id: " + id));
-		return user.getReimbursements();
+		Person person = userDao.findById(id).orElseThrow(() -> new UserNotFoundException("No person found with the id: " + id));
+		return person.getReimbursements();
 	}
 
-	public User submitReimbursement(int personId, int reimbursementId) throws UserNotFoundException, ReimbursementNotFoundException
+	public Person submitReimbursement(int personId, int reimbursementId) throws UserNotFoundException, ReimbursementNotFoundException
 	{
-		User user = getPersonById(personId);
+		Person person = getPersonById(personId);
 		Reimbursement reimbursement = reimbursementDao.findById(reimbursementId).orElseThrow(() -> new ReimbursementNotFoundException("No reimbursement found with the id: " + reimbursementId));
 
-		if(!user.getReimbursements().contains(reimbursement)) {
-			user.getReimbursements().add(reimbursement);
-			userDao.save(user);
+		if(!person.getReimbursements().contains(reimbursement)) {
+			person.getReimbursements().add(reimbursement);
+			userDao.save(person);
 		}
 
-		return user;
+		return person;
 	}
 }

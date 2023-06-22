@@ -1,6 +1,6 @@
 package com.revature.controllers;
 
-import com.revature.models.User;
+import com.revature.models.Person;
 import com.revature.models.Reimbursement;
 import com.revature.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,34 +28,34 @@ public class UserController
 	}
 
 	@GetMapping
-	public List<User> getAllUsers()
+	public List<Person> getAllUsers()
 	{
 		return userService.getAllPeople();
 	}
 
 	@PostMapping
-	public User addUser(@RequestBody User user)
+	public Person addUser(@RequestBody Person person)
 	{
-		if(userService.addPerson(user)) {
-			return user;
+		if(userService.addPerson(person)) {
+			return person;
 		} else {
 			return null;
 		}
 	}
 
 	@GetMapping("/{id}")
-	public User getUser(@PathVariable("id") int id)
+	public Person getUser(@PathVariable("id") int id)
 	{
 		return userService.getPersonById(id);
 	}
 
 	@PutMapping("/{id}")
-	public User updateUser(@PathVariable("id") int id, @RequestBody User user)
+	public Person updateUser(@PathVariable("id") int id, @RequestBody Person person)
 	{
-		if(user != null) {
-			user.setId(id);
-			if(userService.updatePerson(user)) {
-				return user;
+		if(person != null) {
+			person.setId(id);
+			if(userService.updatePerson(person)) {
+				return person;
 			} else {
 				return null;
 			}
@@ -77,7 +77,7 @@ public class UserController
 	}
 
 	@PostMapping("/{id}/reimbursements")
-	public User addReimbursement(@PathVariable("id") int id, @RequestBody Reimbursement reimbursement)
+	public Person addReimbursement(@PathVariable("id") int id, @RequestBody Reimbursement reimbursement)
 	{
 		return userService.submitReimbursement(id, reimbursement.getId());
 	}

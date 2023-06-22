@@ -1,13 +1,15 @@
 package com.revature.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User
+public class Person
 {
 	// Members
 
@@ -30,17 +32,17 @@ public class User
 	@Column(name = "user_password")
 	private String password;
 
-	@OneToMany(targetEntity = Reimbursement.class, mappedBy = "user")
-	@JsonManagedReference
+	@OneToMany(targetEntity = Reimbursement.class, mappedBy = "person")
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private List<Reimbursement> reimbursements;
 
 	// Constructors
 
-	public User()
+	public Person()
 	{
 	}
 
-	public User(String firstName, String lastName, Role role, String username, String password)
+	public Person(String firstName, String lastName, Role role, String username, String password)
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -49,7 +51,7 @@ public class User
 		this.password = password;
 	}
 
-	public User(int id, String firstName, String lastName, Role role, String username, String password)
+	public Person(int id, String firstName, String lastName, Role role, String username, String password)
 	{
 		this.id = id;
 		this.firstName = firstName;
