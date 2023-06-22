@@ -21,10 +21,10 @@ public class Reimbursement
 	@Column(name = "reimbursement_description")
 	private String description;
 
-	@ManyToOne(targetEntity = Person.class)
+	@ManyToOne(targetEntity = User.class)
 	@JoinColumn(name = "reimbursement_user_id")
 	@JsonBackReference
-	private Person user;
+	private User user;
 
 	@ManyToOne(targetEntity = Status.class)
 	@JoinColumn(name = "reimbursement_status_id")
@@ -72,11 +72,11 @@ public class Reimbursement
 		this.description = description;
 	}
 
-	public Person getUser()
+	public User getUser()
 	{
 		return user;
 	}
-	public void setUser(Person user)
+	public void setUser(User user)
 	{
 		this.user = user;
 	}

@@ -1,8 +1,8 @@
 package com.revature.controllers;
 
-import com.revature.models.Person;
+import com.revature.models.User;
 import com.revature.models.Reimbursement;
-import com.revature.services.PersonService;
+import com.revature.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,45 +17,45 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class PersonController
+public class UserController
 {
-	private final PersonService personService;
+	private final UserService userService;
 
 	@Autowired
-	public PersonController(PersonService personService)
+	public UserController(UserService userService)
 	{
-		this.personService = personService;
+		this.userService = userService;
 	}
 
 	@GetMapping
-	public List<Person> getAllUsers()
+	public List<User> getAllUsers()
 	{
-		return personService.getAllPeople();
+		return userService.getAllPeople();
 	}
 
 	@PostMapping
-	public Person addUser(@RequestBody Person person)
+	public User addUser(@RequestBody User user)
 	{
-		if(personService.addPerson(person)) {
-			return person;
+		if(userService.addPerson(user)) {
+			return user;
 		} else {
 			return null;
 		}
 	}
 
 	@GetMapping("/{id}")
-	public Person getUser(@PathVariable("id") int id)
+	public User getUser(@PathVariable("id") int id)
 	{
-		return personService.getPersonById(id);
+		return userService.getPersonById(id);
 	}
 
 	@PutMapping("/{id}")
-	public Person updateUser(@PathVariable("id") int id, @RequestBody Person person)
+	public User updateUser(@PathVariable("id") int id, @RequestBody User user)
 	{
-		if(person != null) {
-			person.setId(id);
-			if(personService.updatePerson(person)) {
-				return person;
+		if(user != null) {
+			user.setId(id);
+			if(userService.updatePerson(user)) {
+				return user;
 			} else {
 				return null;
 			}
@@ -67,18 +67,18 @@ public class PersonController
 	@DeleteMapping("/{id}")
 	public boolean removeUser(@PathVariable("id") int id)
 	{
-		return personService.removePersonById(id);
+		return userService.removePersonById(id);
 	}
 
 	@GetMapping("/{id}/reimbursements")
 	public List<Reimbursement> getReimbursementsByUserId(@PathVariable("id") int id)
 	{
-		return personService.getPersonById(id).getReimbursements();
+		return userService.getPersonById(id).getReimbursements();
 	}
 
 	@PostMapping("/{id}/reimbursements")
-	public Person addReimbursement(@PathVariable("id") int id, @RequestBody Reimbursement reimbursement)
+	public User addReimbursement(@PathVariable("id") int id, @RequestBody Reimbursement reimbursement)
 	{
-		return personService.submitReimbursement(id, reimbursement.getId());
+		return userService.submitReimbursement(id, reimbursement.getId());
 	}
 }

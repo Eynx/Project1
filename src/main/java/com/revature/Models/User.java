@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class Person
+public class User
 {
 	// Members
 
@@ -36,11 +36,11 @@ public class Person
 
 	// Constructors
 
-	public Person()
+	public User()
 	{
 	}
 
-	public Person(String firstName, String lastName, Role role, String username, String password)
+	public User(String firstName, String lastName, Role role, String username, String password)
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -49,7 +49,7 @@ public class Person
 		this.password = password;
 	}
 
-	public Person(int id, String firstName, String lastName, Role role, String username, String password)
+	public User(int id, String firstName, String lastName, Role role, String username, String password)
 	{
 		this.id = id;
 		this.firstName = firstName;
@@ -65,7 +65,6 @@ public class Person
 	{
 		return id;
 	}
-
 	public void setId(int id)
 	{
 		this.id = id;
@@ -75,7 +74,6 @@ public class Person
 	{
 		return firstName;
 	}
-
 	public void setFirstName(String firstName)
 	{
 		this.firstName = firstName;
@@ -85,7 +83,6 @@ public class Person
 	{
 		return lastName;
 	}
-
 	public void setLastName(String lastName)
 	{
 		this.lastName = lastName;
@@ -95,7 +92,6 @@ public class Person
 	{
 		return role;
 	}
-
 	public void setRole(Role role)
 	{
 		this.role = role;
@@ -105,7 +101,6 @@ public class Person
 	{
 		return username;
 	}
-
 	public void setUsername(String username)
 	{
 		this.username = username;
@@ -115,7 +110,6 @@ public class Person
 	{
 		return password;
 	}
-
 	public void setPassword(String password)
 	{
 		this.password = password;
@@ -125,7 +119,6 @@ public class Person
 	{
 		return reimbursements;
 	}
-
 	public void setReimbursements(List<Reimbursement> reimbursements)
 	{
 		this.reimbursements = reimbursements;
