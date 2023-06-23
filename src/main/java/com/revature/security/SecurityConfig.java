@@ -1,5 +1,4 @@
 package com.revature.security;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +30,7 @@ public class SecurityConfig
 		http.csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeRequests().antMatchers("/auth/**").permitAll();
-		http.authorizeRequests().antMatchers("/users/**").hasAuthority("Customer");
+		http.authorizeRequests().antMatchers("/users/**").hasAuthority("Employee");
 		http.httpBasic();
 		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
