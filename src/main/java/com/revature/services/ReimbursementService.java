@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import com.revature.daos.ReimbursementDAO;
+import com.revature.daos.StatusDAO;
 import com.revature.exceptions.ReimbursementNotFoundException;
 import com.revature.models.Reimbursement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,13 @@ import java.util.List;
 public class ReimbursementService
 {
 	private final ReimbursementDAO reimbursementDAO;
+	private final StatusDAO statusDAO;
 
 	@Autowired
-	public ReimbursementService(ReimbursementDAO reimbursementDAO)
+	public ReimbursementService(ReimbursementDAO reimbursementDAO, StatusDAO statusDAO)
 	{
 		this.reimbursementDAO = reimbursementDAO;
+		this.statusDAO = statusDAO;
 	}
 
 	public List<Reimbursement> getAllReimbursements()
@@ -29,8 +32,10 @@ public class ReimbursementService
 		return reimbursementDAO.findById(id).orElseThrow(() -> new ReimbursementNotFoundException("No reimbursement found with the id: " + id));
 	}
 
+
 	public boolean addReimbursement(Reimbursement reimbursement)
 	{
+		reimbursement.setStatus(statusDAO.getByName("pending"));
 		return reimbursementDAO.save(reimbursement).getId() > 0;
 	}
 

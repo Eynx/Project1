@@ -3,10 +3,7 @@ package com.revature.controllers;
 import com.revature.models.Reimbursement;
 import com.revature.services.ReimbursementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +29,10 @@ public class ReimbursementController
 	public Reimbursement getReimbursementById(@PathVariable("id") int id)
 	{
 		return reimbursementService.getReimbursementById(id);
+	}
+	@PostMapping
+	public boolean addReimbursement(@RequestBody Reimbursement reimbursement)
+	{
+		return reimbursementService.addReimbursement(reimbursement);
 	}
 }
