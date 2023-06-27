@@ -5,6 +5,7 @@ import com.revature.daos.UserDAO;
 import com.revature.dtos.AuthResponseDTO;
 import com.revature.dtos.LoginDTO;
 import com.revature.dtos.RegisterDTO;
+import com.revature.exceptions.RoleNotFoundException;
 import com.revature.models.Person;
 import com.revature.models.Role;
 import com.revature.security.JwtGenerator;
@@ -47,24 +48,22 @@ public class AuthController
 	@PostMapping("/register")
 	public ResponseEntity<String> register(@RequestBody RegisterDTO registerDTO)
 	{
-		if (userDAO.existsByUsername(registerDTO.getUsername())){
-			return new ResponseEntity<String>("User name is Taken:", HttpStatus.BAD_REQUEST);
+		if (userDAO.existsByUsername(registerDTO.getUsername())) {
+			return new ResponseEntity<String>("Username is taken.", HttpStatus.BAD_REQUEST);
 		}
-		Person p = new Person();
-		p.setFirstName(registerDTO.getFirstName());
-		p.setLastName(registerDTO.getLastName());
-		p.setUsername(registerDTO.getUsername());
-		p.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
 
-		// Now that we've done all this, let's set the standard role
-		Role role = roleDAO.getByName("Employee");
+		Person person = new Person();
+		person.setFirstName(registerDTO.getFirstName());
+		person.setLastName(registerDTO.getLastName());
+		person.setUsername(registerDTO.getUsername());
+		person.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
 
-		p.setRole(role);
+		Role role = roleDAO.findByName("Customer").orElseThrow(() -> new RoleNotFoundException("There was an error assigning the default role."));
+		person.setRole(role);
 
-		// We've built the proper person object so let's save it now
-		userDAO.save(p);
+		userDAO.save(person);
 
-		return new ResponseEntity<>("User successfully registered!", HttpStatus.CREATED);
+		return new ResponseEntity<>("Registration complete.", HttpStatus.CREATED);
 	}
 
 	@PostMapping("/login")

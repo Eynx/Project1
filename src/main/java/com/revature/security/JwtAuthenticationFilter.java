@@ -1,6 +1,8 @@
 package com.revature.security;
 
 import com.revature.services.CustomUserDetailsService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,30 +35,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
 	{
-		String token = getJwtTokenFromRequest(request);
+		String token = request.getHeader("Authorization");
 
-		if(token != null && jwtGenerator.validateToken(token))
+		if(token != null)
 		{
-			String username = jwtGenerator.getUsernameFromToken(token);
-			UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-			authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-			SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+			if(token.startsWith("Bearer "))
+			{
+				Jws<Claims> claims = jwtGenerator.parseToken(token.substring(7));
+
+				if(claims != null)
+				{
+					String username = claims.getBody().getSubject();
+					UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+					UsernamePasswordAuthenticationToken authentication = UsernamePasswordAuthenticationToken.authenticated(userDetails, null, userDetails.getAuthorities());
+					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+					SecurityContextHolder.getContext().setAuthentication(authentication);
+					System.out.println(authentication);
+				}
+			}
 		}
 
 		filterChain.doFilter(request, response);
-	}
-
-	private String getJwtTokenFromRequest(HttpServletRequest request)
-	{
-		String bearerToken = request.getHeader("Authorization");
-		if(bearerToken != null && bearerToken.startsWith("Bearer "))
-		{
-			return bearerToken.substring(7);
-		}
-		else
-		{
-			return null;
-		}
 	}
 }

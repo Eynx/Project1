@@ -25,14 +25,15 @@ public class ReimbursementController
 		return reimbursementService.getAllReimbursements();
 	}
 
-	@GetMapping("/{id}")
-	public Reimbursement getReimbursementById(@PathVariable("id") int id)
-	{
-		return reimbursementService.getReimbursementById(id);
-	}
 	@PostMapping
 	public boolean addReimbursement(@RequestBody Reimbursement reimbursement)
 	{
 		return reimbursementService.addReimbursement(reimbursement);
+	}
+
+	@GetMapping("/{id}")
+	public Reimbursement getReimbursementById(@PathVariable("id") int id)
+	{
+		return reimbursementService.getReimbursementById(id);
 	}
 }

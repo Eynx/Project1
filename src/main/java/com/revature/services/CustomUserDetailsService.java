@@ -32,13 +32,9 @@ public class CustomUserDetailsService implements UserDetailsService
 	{
 		Person person = userDAO.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("No user with that username was found."));
 
-		return new User(person.getUsername(), person.getPassword(), mapRoleToAuthority(person.getRole()));
-	}
-
-	private Collection<GrantedAuthority> mapRoleToAuthority(Role role)
-	{
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-		grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-		return grantedAuthorities;
+		grantedAuthorities.add(new SimpleGrantedAuthority(person.getRole().getName()));
+
+		return new User(person.getUsername(), person.getPassword(), grantedAuthorities);
 	}
 }

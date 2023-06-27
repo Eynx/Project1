@@ -30,7 +30,7 @@ public class SecurityConfig
 		http.csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeRequests().antMatchers("/auth/**").permitAll();
-		http.authorizeRequests().antMatchers("/users/**").hasAuthority("Employee");
+		http.authorizeRequests().antMatchers("/users/**").hasAuthority("Customer");
 		http.httpBasic();
 		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
