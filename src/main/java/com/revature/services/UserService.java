@@ -1,12 +1,15 @@
 package com.revature.services;
 
+import com.revature.daos.StatusDAO;
+import com.revature.dtos.ReimbursementDTO;
+import com.revature.exceptions.StatusNotFoundException;
 import com.revature.models.Person;
 import com.revature.models.Reimbursement;
 import com.revature.daos.UserDAO;
 import com.revature.daos.ReimbursementDAO;
 import com.revature.exceptions.UserNotFoundException;
-import com.revature.exceptions.ReimbursementNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,17 +19,19 @@ public class UserService
 {
 	private final UserDAO userDao;
 	private final ReimbursementDAO reimbursementDao;
+	private final StatusDAO statusDAO;
 
 	@Autowired
-	public UserService(UserDAO userDao, ReimbursementDAO reimbursementDao)
+	public UserService(UserDAO userDao, ReimbursementDAO reimbursementDao, StatusDAO statusDAO)
 	{
 		this.userDao = userDao;
 		this.reimbursementDao = reimbursementDao;
+		this.statusDAO = statusDAO;
 	}
 
 	public List<Person> getAllPeople()
 	{
-		return userDao.findAll();
+		return userDao.findAll(Sort.by(Sort.Direction.ASC, "id"));
 	}
 
 	public Person getPersonById(int id) throws UserNotFoundException
@@ -61,15 +66,19 @@ public class UserService
 		return person.getReimbursements();
 	}
 
-	public Person submitReimbursement(int personId, int reimbursementId) throws UserNotFoundException, ReimbursementNotFoundException
+	public Person submitReimbursement(int personId, ReimbursementDTO reimbursementDTO) throws UserNotFoundException, StatusNotFoundException
 	{
 		Person person = getPersonById(personId);
-		Reimbursement reimbursement = reimbursementDao.findById(reimbursementId).orElseThrow(() -> new ReimbursementNotFoundException("No reimbursement found with the id: " + reimbursementId));
 
-		if(!person.getReimbursements().contains(reimbursement)) {
-			person.getReimbursements().add(reimbursement);
-			userDao.save(person);
-		}
+		Reimbursement reimbursement = new Reimbursement();
+		reimbursement.setAmount(reimbursementDTO.getAmount());
+		reimbursement.setDescription(reimbursementDTO.getDescription());
+		reimbursement.setUser(person);
+		reimbursement.setStatus(statusDAO.findByName("Pending").orElseThrow());
+		reimbursementDao.save(reimbursement);
+
+		person.getReimbursements().add(reimbursement);
+		userDao.save(person);
 
 		return person;
 	}

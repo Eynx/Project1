@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import com.revature.dtos.ReimbursementDTO;
 import com.revature.models.Person;
 import com.revature.models.Reimbursement;
 import com.revature.services.UserService;
@@ -77,8 +78,8 @@ public class UserController
 	}
 
 	@PostMapping("/{id}/reimbursements")
-	public Person addReimbursement(@PathVariable("id") int id, @RequestBody Reimbursement reimbursement)
+	public Person addReimbursement(@PathVariable("id") int id, @RequestBody ReimbursementDTO reimbursementDTO)
 	{
-		return userService.submitReimbursement(id, reimbursement.getId());
+		return userService.submitReimbursement(id, reimbursementDTO);
 	}
 }
