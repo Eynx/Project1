@@ -39,6 +39,11 @@ public class UserService
 		return userDao.findById(id).orElseThrow(() -> new UserNotFoundException("No person found with the id: " + id));
 	}
 
+	public Person getPersonByUsername(String username) throws UserNotFoundException
+	{
+		return userDao.findByUsername(username).orElseThrow(() -> new UserNotFoundException("No person found with the username: " + username));
+	}
+
 	public boolean addPerson(Person person)
 	{
 		return userDao.save(person).getId() > 0;
