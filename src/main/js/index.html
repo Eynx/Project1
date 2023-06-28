@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		body {
+			width: 100vw;
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		main {
+			display: flex;
+		}
+
+		main > div {
+			display: flex;
+			flex-direction: column;
+			margin: 0.5rem;
+		}
+
+		main > div.divider {
+			width: auto;
+			border-left: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<main id="root">
+		<div>
+			<p>Log in to your account</p>
+			<input id="loginUsername" type="text" placeholder="Username">
+			<input id="loginPassword" type="password" placeholder="Password">
+			<!-- <input type="submit" value="Log In"> -->
+			<button id="loginButton">Log In</button>
+		</div>
+		<div class="divider"></div>
+		<div>
+			<p>Register a new account</p>
+			<input id="registerFirstName" type="text" placeholder="First Name">
+			<input id="registerLastName" type="text" placeholder="Last Name">
+			<input id="registerUsername" type="text" placeholder="Username">
+			<input id="registerPassword" type="password" placeholder="Password">
+			<!-- <input type="submit" value="Register"> -->
+			<button id="registerButton">Register</button>
+		</div>
+	</main>
+	<script src="login.js"></script>
+</body>
+</html>
