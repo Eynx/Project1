@@ -2,12 +2,15 @@ package com.revature.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.revature.serializer.PersonSerializer;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@JsonSerialize(using = PersonSerializer.class)
 public class Person
 {
 	// Members
@@ -32,7 +35,6 @@ public class Person
 	private String password;
 
 	@OneToMany(targetEntity = Reimbursement.class, mappedBy = "person")
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private List<Reimbursement> reimbursements;
 
 	// Constructors

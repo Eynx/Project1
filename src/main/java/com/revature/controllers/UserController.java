@@ -74,7 +74,7 @@ public class UserController
 	@GetMapping("/{id}/reimbursements")
 	public List<Reimbursement> getReimbursementsByUserId(@PathVariable("id") int id)
 	{
-		return userService.getPersonById(id).getReimbursements();
+		return userService.getReimbursementsByPersonId(id);
 	}
 
 	@PostMapping("/{id}/reimbursements")
