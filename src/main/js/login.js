@@ -2,7 +2,9 @@
 const url = "http://localhost:8080";
 
 // Label the lambda "async" to denote it'll return a Promise instead of directly returning a value.
-let button = document.getElementById("loginButton").addEventListener("click", async () => {
+let button = document.getElementById("loginButton");
+if(button) {
+button.addEventListener("click", async () => {
 	let username = document.getElementById("loginUsername").value;
 	let password = document.getElementById("loginPassword").value;
 	let loginDTO = { username:username, password:password };
@@ -10,7 +12,7 @@ let button = document.getElementById("loginButton").addEventListener("click", as
 	console.log(loginDTO);
 
 	// Label the fetch "await" to pause execution of the function until the call returns.
-	await fetch(`${url}/auth/login`, {
+	await fetch(`${url}/api/auth/login`, {
 		method: "POST",
 		headers: {"Content-Type":"application/json"},
 		body: JSON.stringify(loginDTO)
@@ -19,18 +21,22 @@ let button = document.getElementById("loginButton").addEventListener("click", as
 	.then((data) => {
 		console.log(data);
 		console.log(data.accessToken);
-		console.log(parseJWT(data.accessToken));
-		if(parseJWT(data.accessToken).role === "Manager") {
+		let claims = parseJWT(data.accessToken);
+		console.log(claims);
+		if(claims.role === "Manager") {
 			// Redirect to the Teacher page.
 			window.location.href = "manager";
 		} else {
 			// Redirect to the Student page.
 			window.location.href = "customer";
 		}
+
+		document.cookie = data.accessToken;
 	});
 });
+}
 
-function parseJWT(token)
+export function parseJWT(token)
 {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

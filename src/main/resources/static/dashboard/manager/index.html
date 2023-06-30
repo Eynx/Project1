@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Forms demo</title>
+	<link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+	<main id="managerTable" class="content">
+		<div class="sidebar">
+				<span>Filter</span>
+				<div>
+					<input id="filterPending" type="checkbox" checked>
+					<label>Pending</label>
+				</div>
+				<div>
+					<input id="filterApproved" type="checkbox" checked>
+					<label>Approved</label>
+				</div>
+				<div>
+					<input id="filterDenied" type="checkbox" checked>
+					<label>Denied</label>
+				</div>
+			</dl>
+		</div>
+		<div class="content">
+			<header>
+				<span>ID</span>
+				<span>Amount</span>
+				<span>Description</span>
+				<span>Status</span>
+				<span>Action</span>
+				<span>User</span>
+			</header>
+			<div id="reimbursementsBody" class="table">
+			</div>
+		</div>
+	</main>
+	<script src="/index.js"></script>
+</body>
+</html>

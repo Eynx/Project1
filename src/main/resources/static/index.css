@@ -1,0 +1,327 @@
+/* Global Styles */
+
+* {
+	font-family: Arial, Helvetica, sans-serif;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+p > a {
+	color: white;
+}
+
+p > a:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+/* Main content */
+
+body {
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-image: radial-gradient(circle farthest-side, #2C2C2C, #141414);
+}
+
+main > div[disabled] {
+	display: none;
+}
+
+main > div.divider {
+	width: 0 !important;
+}
+
+/* Home Page */
+
+main.home {
+	display: flex;
+}
+
+main.home > div {
+	width: 320px;
+	margin: 1rem;
+}
+
+div.divider {
+	box-sizing: border-box;
+	border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Content Page */
+
+main.content {
+	width: 1024px;
+	height: 640px;
+	display: flex;
+	flex-wrap: wrap;
+	text-align: center;
+}
+
+main.content > div.sidebar {
+	border-right: 1px solid rgba(255, 255, 255, 0.25);
+	width: 15%;
+	height: inherit;
+}
+
+main.content > div.content {
+	width: 85%;
+	height: inherit;
+}
+
+main.content > div.new {
+	width: 100%;
+	display: flex;
+}
+
+div.new > div.side {
+	width: 15%;
+	border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+div.form > button {
+	box-sizing: border-box;
+	height: 100%;
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	background-color: white;
+	color: black;
+	transition-duration: 0.15s;
+}
+
+div.form > button:hover {
+	background-color: dodgerblue;
+	color: white;
+	cursor: pointer;
+}
+
+div.form > button:active {
+	background-color: #1B82E6;
+	color: white;
+	transition-duration: 0s;
+}
+
+div.form > button[disabled] {
+	background-color: lightgrey;
+	color: dimgrey;
+	transition-duration: 0s;
+}
+
+div.form {
+	width: 85%;
+	display: flex;
+	justify-content: center;
+}
+
+div.form > input {
+	margin: 0;
+}
+
+/* Dashboard Page */
+
+main.dashboard {
+	display: flex;
+	text-align: center;
+}
+
+main.dashboard > div {
+	width: 320px;
+	margin: 1rem;
+}
+
+main.dashboard > div > button {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 1rem;
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	background-color: rgba(0, 0, 0, 0.5);
+	transition-duration: 0.15s;
+}
+
+main.dashboard > div > button:hover {
+	background-color: rgba(0, 0, 0, 0.75);
+	border-color: rgba(255, 255, 255, 0.35);
+	color: rgba(255, 255, 255, 0.75);
+}
+
+main.dashboard > div > button:active {
+	transition-duration: 0s;
+	background-color: black;
+	border-color: rgba(255, 255, 255, 0.5);
+	color: white;
+}
+
+/* Login Form */
+
+div.loginForm > input, div.registerForm > input {
+	width: 100%;
+}
+
+div.registerForm > p {
+	margin: 0;
+	font-weight: bold;
+	font-size: 0.75rem;
+}
+
+div.registerForm > p[disabled] {
+	display: none;
+}
+
+p.available {
+	color: forestgreen;
+}
+
+p.taken {
+	color: firebrick;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+input.text, input.button {
+	box-sizing: border-box;
+	padding: 1rem;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+input.text:hover {
+	border-color: rgba(255, 255, 255, 0.35);
+	color: rgba(255, 255, 255, 0.75);
+}
+
+input.text:focus {
+	color: white;
+}
+
+::placeholder {
+	color: rgba(255, 255, 255, 0.35);
+}
+
+input.button {
+	background-color: white;
+	color: black;
+	transition-duration: 0.15s;
+}
+
+input.button:hover {
+	background-color: dodgerblue;
+	color: white;
+	cursor: pointer;
+}
+
+input.button:active {
+	background-color: #1B82E6;
+	color: white;
+	transition-duration: 0s;
+}
+
+input.button[disabled] {
+	background-color: lightgrey;
+	color: dimgrey;
+	transition-duration: 0s;
+}
+
+/* Sidebar Content */
+
+h1 {
+	color: white;
+	font-size: 1.9rem;
+}
+
+/* Sidebar */
+
+div.sidebar {
+	box-sizing: border-box;
+	padding: 1rem;
+	text-align: left;
+}
+
+/* Table Content */
+
+div.content > header {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+	height: 5%;
+    display: grid;
+    grid: auto / 5% 10% auto 15% 25% 10%;
+	margin-right: 17px;
+}
+
+#customerTable > div.content > header {
+	grid: auto / 5% 10% auto 15% 10%;
+}
+
+div.table {
+	height: 95%;
+	overflow-y: scroll;
+}
+
+div.table > div {
+	background-color: rgba(0, 0, 0, 0.5);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+	display: grid;
+	grid: auto / 5% 10% auto 15% 25% 10%;
+    padding: 1rem 0;
+}
+
+#customerTable > div.content > div.table > div {
+	grid: auto / 5% 10% auto 15% 10%;
+}
+
+span.status {
+	color: palegoldenrod;
+}
+
+div.approved {
+	background-color: rgba(0, 127, 0, 0.5);
+}
+
+div.approved > span.status {
+	color: mediumseagreen;
+}
+
+div.denied > span.status {
+	color: tomato;
+}
+
+div.table > div:hover {
+	background-color: rgba(0, 0, 0, 0.75);
+}
+
+button.approve {
+	background-color: mediumseagreen;
+	color: white;
+}
+
+button.deny {
+	background-color: tomato;
+	color: white;
+}
+
+button.approve[disabled], button.deny[disabled] {
+	background-color: dimgrey;
+}
+
+input[error] {
+	border: 1px solid rgba(255, 0, 0, 0.75);
+}
+
+/* Mobile responsiveness */
+/*
+@media only screen and (max-width: 740px) {
+	main {
+		flex-direction: column !important;
+	}
+
+	div.divider {
+		border-left: 0px;
+		border-top: 1px solid rgba(255, 255, 255, 0.15);
+	}
+}
+*/

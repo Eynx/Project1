@@ -28,7 +28,7 @@ public class ReimbursementSerializer extends StdSerializer<Reimbursement>
 		jsonGenerator.writeStringField("description", reimbursement.getDescription());
 		jsonGenerator.writeStringField("status", reimbursement.getStatus().getName());
 		jsonGenerator.writeObjectFieldStart("links");
-		jsonGenerator.writeStringField("user", "/users/" + reimbursement.getUser().getId());
+		jsonGenerator.writeStringField("user", "/api/users/" + reimbursement.getUser().getId());
 		jsonGenerator.writeEndObject();
 		jsonGenerator.writeEndObject();
 	}

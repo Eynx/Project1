@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Forms demo</title>
+	<link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+	<main class="home">
+		<div id="loginDiv" class="login">
+			<div class="loginForm">
+				<header>Log in to your account</header>
+				<input id="loginUsername" class="text" type="text" placeholder="Username">
+				<input id="loginPassword" class="text" type="password" placeholder="Password">
+				<input id="loginButton" class="button" type="submit" value="Log In">
+			</div>
+			<p>Not registered? <a id="toggleLogin">Create an account</a>.</p>
+		</div>
+		<div id="registerDiv" class="register" disabled>
+			<div class="registerForm">
+				<header>Register a new account account</header>
+				<input id="registerFirstName" class="text" type="text" placeholder="First Name">
+				<input id="registerLastName" class="text" type="text" placeholder="Last Name">
+				<input id="registerUsername" class="text" type="text" placeholder="Username">
+				<p id="labelAvailable" class="available" disabled>Username is available.</p>
+				<p id="labelTaken" class="taken" disabled>Username is taken.</p>
+				<input id="registerPassword" class="text" type="password" placeholder="Password">
+				<input id="registerButton" class="button" type="submit" value="Register">
+			</div>
+			<p>Already have an account? <a id="toggleRegister">Log in here</a>.</p>
+		</div>
+		<div class="divider"></div>
+		<div class="textDiv">
+			<header>
+				<h1>Reimbursements API</h1>
+			</header>
+			<p>Here you can view your reimbursements or add new ones. Login to begin viewing and managing them.</p>
+		</div>
+	</main>
+	<script src="/index.js"></script>
+</body>
+</html>

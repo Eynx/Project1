@@ -30,7 +30,7 @@ public class PersonSerializer extends StdSerializer<Person>
 		jsonGenerator.writeStringField("username", person.getUsername());
 		jsonGenerator.writeStringField("password", person.getPassword());
 		jsonGenerator.writeObjectFieldStart("links");
-		jsonGenerator.writeStringField("reimbursements", "/users/" + person.getId() + "/reimbursements");
+		jsonGenerator.writeStringField("reimbursements", "/api/users/" + person.getId() + "/reimbursements");
 		jsonGenerator.writeEndObject();
 		jsonGenerator.writeEndObject();
 	}

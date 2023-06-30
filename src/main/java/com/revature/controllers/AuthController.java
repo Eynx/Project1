@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:3000")
 public class AuthController
 {
@@ -48,10 +48,10 @@ public class AuthController
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<String> register(@RequestBody RegisterDTO registerDTO)
+	public ResponseEntity<AuthResponseDTO> register(@RequestBody RegisterDTO registerDTO)
 	{
 		if (userDAO.existsByUsername(registerDTO.getUsername())) {
-			return new ResponseEntity<String>("Username is taken.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 
 		Person person = new Person();
@@ -65,7 +65,11 @@ public class AuthController
 
 		userDAO.save(person);
 
-		return new ResponseEntity<>("Registration complete.", HttpStatus.CREATED);
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(registerDTO.getUsername(), registerDTO.getPassword()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		String jwtToken = jwtGenerator.generateToken(authentication);
+		return new ResponseEntity<AuthResponseDTO>(new AuthResponseDTO(jwtToken), HttpStatus.OK);
 	}
 
 	@PostMapping("/login")

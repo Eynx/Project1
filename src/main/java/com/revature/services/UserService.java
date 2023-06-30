@@ -67,11 +67,12 @@ public class UserService
 
 	public List<Reimbursement> getReimbursementsByPersonId(int id) throws UserNotFoundException
 	{
-		Person person = userDao.findById(id).orElseThrow(() -> new UserNotFoundException("No person found with the id: " + id));
-		return person.getReimbursements();
+		//Person person = userDao.findById(id).orElseThrow(() -> new UserNotFoundException("No person found with the id: " + id));
+		//return person.getReimbursements();
+		return reimbursementDao.findByPerson(id);
 	}
 
-	public Person submitReimbursement(int personId, ReimbursementDTO reimbursementDTO) throws UserNotFoundException, StatusNotFoundException
+	public Reimbursement submitReimbursement(int personId, ReimbursementDTO reimbursementDTO) throws UserNotFoundException, StatusNotFoundException
 	{
 		Person person = getPersonById(personId);
 
@@ -85,6 +86,6 @@ public class UserService
 		person.getReimbursements().add(reimbursement);
 		userDao.save(person);
 
-		return person;
+		return reimbursement;
 	}
 }

@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import com.revature.dtos.ReimbursementDTO;
+import com.revature.exceptions.UserNotFoundException;
 import com.revature.models.Person;
 import com.revature.models.Reimbursement;
 import com.revature.services.UserService;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController
 {
@@ -43,6 +44,17 @@ public class UserController
 			return person;
 		} else {
 			return null;
+		}
+	}
+
+	@PostMapping("/exists")
+	public String getUsernameExists(@RequestBody String username)
+	{
+		try {
+			userService.getPersonByUsername(username);
+			return "1";
+		} catch(UserNotFoundException e) {
+			return "0";
 		}
 	}
 
@@ -80,7 +92,7 @@ public class UserController
 	}
 
 	@PostMapping("/{id}/reimbursements")
-	public Person addReimbursement(@PathVariable("id") int id, @RequestBody ReimbursementDTO reimbursementDTO)
+	public Reimbursement addReimbursement(@PathVariable("id") int id, @RequestBody ReimbursementDTO reimbursementDTO)
 	{
 		return userService.submitReimbursement(id, reimbursementDTO);
 	}

@@ -31,9 +31,10 @@ public class SecurityConfig
 		http.csrf().disable();
 		http.cors(Customizer.withDefaults());
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.authorizeRequests().antMatchers("/auth/**").permitAll();
-		http.authorizeRequests().antMatchers("/users/**").hasAuthority("Customer");
-		http.httpBasic();
+		http.authorizeRequests().antMatchers("/**").permitAll();
+		http.authorizeRequests().antMatchers("/api/auth/**").permitAll();
+		http.authorizeRequests().antMatchers("/api/users/**").authenticated();
+		http.authorizeRequests().antMatchers("/api/reimbursements/**").hasAuthority("Manager");
 		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();

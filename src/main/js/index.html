@@ -5,49 +5,30 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 	<style>
-		body {
-			width: 100vw;
-			height: 100vh;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-		main {
-			display: flex;
-		}
-
-		main > div {
-			display: flex;
-			flex-direction: column;
-			margin: 0.5rem;
-		}
-
-		main > div.divider {
-			width: auto;
-			border-left: 1px solid black;
+		div[disabled] {
+			display: none;
 		}
 	</style>
 </head>
-<body>
-	<main id="root">
+<body class="vw-100 vh-100 d-flex justify-content-center align-items-center">
+	<main id="root" class="d-flex">
 		<div>
-			<p>Log in to your account</p>
-			<input id="loginUsername" type="text" placeholder="Username">
-			<input id="loginPassword" type="password" placeholder="Password">
+			<p class="h3 fw-normal">Log in to your account</p>
+			<input id="loginUsername" type="text" class="form-control" placeholder="Username">
+			<input id="loginPassword" type="password" class="form-control" placeholder="Password">
 			<!-- <input type="submit" value="Log In"> -->
-			<button id="loginButton">Log In</button>
+			<button id="loginButton" class="btn btn-primary w-100">Log In</button>
 		</div>
-		<div class="divider"></div>
-		<div>
-			<p>Register a new account</p>
-			<input id="registerFirstName" type="text" placeholder="First Name">
-			<input id="registerLastName" type="text" placeholder="Last Name">
-			<input id="registerUsername" type="text" placeholder="Username">
-			<input id="registerPassword" type="password" placeholder="Password">
+		<div disabled>
+			<p class="h3 fw-normal">Register a new account</p>
+			<input id="registerFirstName" type="text" class="form-control" placeholder="First Name">
+			<input id="registerLastName" type="text" class="form-control" placeholder="Last Name">
+			<input id="registerUsername" type="text" class="form-control" placeholder="Username">
+			<input id="registerPassword" type="password" class="form-control" placeholder="Password">
 			<!-- <input type="submit" value="Register"> -->
-			<button id="registerButton">Register</button>
+			<button id="registerButton" class="btn btn-primary w-100">Register</button>
 		</div>
 	</main>
 	<script src="login.js"></script>
